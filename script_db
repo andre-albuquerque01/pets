@@ -1,0 +1,32 @@
+CREATE DATABASE pets; USE
+    pets;
+CREATE TABLE cadastro_cliente(
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(145),
+    cep INT(8),
+    enderco VARCHAR(100),
+    cidade VARCHAR(80),
+    bairro VARCHAR(80),
+    complemento VARCHAR(100),
+    telefone VARCHAR(14),
+    email VARCHAR(150),
+    senha VARCHAR(15),
+    termo_concientizacao CHAR
+); CREATE TABLE cadastro_ad(
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    imagem VARCHAR(255),
+    titulo VARCHAR(50),
+    descricao VARCHAR(255),
+    telefone VARCHAR(14),
+    whatsapp VARCHAR(14),
+    valor DOUBLE,
+    localizacao VARCHAR(80),
+    cadastro_cliente INT
+); CREATE TABLE chat(
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    conversa VARCHAR(255),
+    cadastro_ad INT
+); ALTER TABLE
+    cadastro_ad ADD CONSTRAINT fk_cadastro_cliente FOREIGN KEY(cadastro_cliente) REFERENCES cadastro_cliente(id) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE
+    chat ADD CONSTRAINT fk_cadastro_ad FOREIGN KEY(cadastro_ad) REFERENCES cadastro_ad(id) ON DELETE SET NULL ON UPDATE CASCADE;

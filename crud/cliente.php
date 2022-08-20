@@ -12,8 +12,8 @@ $bairro = $_POST['bairro'];
 $comp = $_POST['comp'];
 $term = $_POST['term'];
 
-if (isset($term)) { 
-    $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES ('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 's')");
+if (isset($term)) {
+    $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
     $cadastrar->execute(array(
         ':nome' => $nome,
         ':cep' => $cep,

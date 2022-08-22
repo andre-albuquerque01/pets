@@ -30,3 +30,10 @@ CREATE TABLE cadastro_cliente(
     cadastro_ad ADD CONSTRAINT fk_cadastro_cliente FOREIGN KEY(cadastro_cliente) REFERENCES cadastro_cliente(id) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE
     chat ADD CONSTRAINT fk_cadastro_ad FOREIGN KEY(cadastro_ad) REFERENCES cadastro_ad(id) ON DELETE SET NULL ON UPDATE CASCADE;
+<<<<<<< HEAD
+    ALTER TABLE chat ADD COLUMN MessageDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+=======
+
+
+Adicionar a disponibilidade, em anuncio
+>>>>>>> 9b5ab290a02b60b6c1bd6d4886c73cf4d319f336

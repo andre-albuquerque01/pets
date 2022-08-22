@@ -30,3 +30,6 @@ CREATE TABLE cadastro_cliente(
     cadastro_ad ADD CONSTRAINT fk_cadastro_cliente FOREIGN KEY(cadastro_cliente) REFERENCES cadastro_cliente(id) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE
     chat ADD CONSTRAINT fk_cadastro_ad FOREIGN KEY(cadastro_ad) REFERENCES cadastro_ad(id) ON DELETE SET NULL ON UPDATE CASCADE;
+
+
+Adicionar a disponibilidade, em anuncio

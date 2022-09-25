@@ -13,6 +13,7 @@ $comp = $_POST['comp'];
 $term = $_POST['term'];
 
 if (isset($term)) {
+    $term = "s";
     $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
     $cadastrar->execute(array(
         ':nome' => $nome,
@@ -27,9 +28,10 @@ if (isset($term)) {
         ':termo_concientizacao' => $term
     ));
 } else {
-    echo "Aceita os termos";
+    echo "<script>alert('Aceita os termos')</script>";
+    echo "<script>location.href='../cadastro_cliente.php'</script>";
 }
 if ($cadastrar == true) {
     echo "<script>alert('Cadastrado com sucesso')</script>";
-    echo "<script>location.href='cadastro_cliente.php'</script>";
+    echo "<script>location.href='../perfil.php'</script>";
 }

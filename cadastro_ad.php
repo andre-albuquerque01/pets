@@ -37,7 +37,7 @@
                     <input type="number" name="valor" step="0.01" id="valor" class="form-control">
                 </div>
                 <div>
-                    <label for="cidade">Cidade</label>
+                    <label for="cidade">Cidade em que deseja atuar</label>
                     <input type="text" name="cidade" id="cidade" class="form-control">
                 </div>
                 <div class=" mt-2">

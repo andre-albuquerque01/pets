@@ -14,3 +14,4 @@ while ($sel = $select->fetch()) {
     echo $sel['senha'];
     echo $sel['termo_concientizacao']."<br>";
 }
+?>

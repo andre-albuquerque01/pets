@@ -1,9 +1,12 @@
 <?php
 include_once "conexao.php";
+$select = $pdo->query("SELECT email from cadastro_cliente");
+$sel = $select->fetch();
+$email = $sel['email'];
 
 $nome = $_POST['nome'];
-$email = $_POST['email'];
-$senha = $_POST['senha'];
+$email1 = strtolower($_POST['email']);
+$senha = base64_encode($_POST['senha']);
 $tel = $_POST['tel'];
 $cep = $_POST['cep'];
 $endereco = $_POST['endereco'];
@@ -11,25 +14,31 @@ $cidade = $_POST['cidade'];
 $bairro = $_POST['bairro'];
 $comp = $_POST['comp'];
 $term = $_POST['term'];
-
-if (isset($term)) {
-    $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
-    $cadastrar->execute(array(
-        ':nome' => $nome,
-        ':cep' => $cep,
-        ':endereco' => $endereco,
-        ':cidade' => $cidade,
-        ':bairro' => $bairro,
-        ':complemento' => $comp,
-        ':telefone' => $tel,
-        ':email' => $email,
-        ':senha' => $senha,
-        ':termo_concientizacao' => $term
-    ));
+if ($email === $email1) {
+    if (isset($term)) {
+        $term = "s";
+        $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
+        $cadastrar->execute(array(
+            ':nome' => $nome,
+            ':cep' => $cep,
+            ':endereco' => $endereco,
+            ':cidade' => $cidade,
+            ':bairro' => $bairro,
+            ':complemento' => $comp,
+            ':telefone' => $tel,
+            ':email' => $email1,
+            ':senha' => $senha,
+            ':termo_concientizacao' => $term
+        ));
+    } else {
+        echo "<script>alert('Aceita os termos')</script>";
+        echo "<script>location.href='../cadastro_cliente.php'</script>";
+    }
+    if ($cadastrar == true) {
+        echo "<script>alert('Cadastrado com sucesso')</script>";
+        echo "<script>location.href='../perfil.php'</script>";
+    }
 } else {
-    echo "Aceita os termos";
-}
-if ($cadastrar == true) {
-    echo "<script>alert('Cadastrado com sucesso')</script>";
-    echo "<script>location.href='cadastro_cliente.php'</script>";
+    echo "<script>alert('Email já cadastrado')</script>";
+    echo "<script>location.href='../login.php'</script>";
 }

@@ -1,5 +1,5 @@
 CREATE DATABASE pets; USE
-    pets;
+    pet;
 CREATE TABLE cadastro_cliente(
     id INT(11) PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(145),
@@ -21,6 +21,7 @@ CREATE TABLE cadastro_cliente(
     whatsapp VARCHAR(14),
     valor DOUBLE,
     localizacao VARCHAR(80),
+    AD_ativo_desativo CHAR(1),
     cadastro_cliente INT
 ); CREATE TABLE chat(
     id INT(11) PRIMARY KEY AUTO_INCREMENT,

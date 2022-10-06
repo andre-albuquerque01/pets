@@ -11,8 +11,9 @@
 <body>
     <?php
     include_once "crud/conexao.php";
-
-    $select = $pdo->query("SELECT imagem, titulo, descricao, telefone, whatsapp, valor, localizacao, cadastro_cliente FROM cadastro_ad;");
+    include_once "crud/verifca_login.php";
+    $id = $_GET['id'];
+    $select = $pdo->query("SELECT imagem, titulo, descricao, telefone, whatsapp, valor, localizacao, cadastro_cliente FROM cadastro_ad WHERE id = $id;");
     // $select = $pdo->query("SELECT imagem, titulo, descricao, telefone, whatsapp, valor, localizacao, cadastro_cliente FROM cadastro_ad INNER JOIN cadastro_cliente ON cadastro_ad.cadastro_cliente = cadastro_cliente.id; ");
     while ($sel = $select->fetch()) {
         $image = $sel['imagem'];

@@ -10,6 +10,7 @@ $senha = base64_encode($_POST['senha']);
 $tel = $_POST['tel'];
 $cep = $_POST['cep'];
 $endereco = $_POST['endereco'];
+$uf = $_POST['uf'];
 $cidade = $_POST['cidade'];
 $bairro = $_POST['bairro'];
 $comp = $_POST['comp'];
@@ -17,11 +18,12 @@ $term = $_POST['term'];
 if ($email === $email1) {
     if (isset($term)) {
         $term = "s";
-        $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
+        $cadastrar = $pdo->prepare("INSERT INTO `cadastro_cliente`(`nome`, `cep`, `endereco`,`estado`, `cidade`, `bairro`, `complemento`, `telefone`, `email`, `senha`, `termo_concientizacao`) VALUES (:nome, :cep, :endereco,:estado, :cidade, :bairro,:complemento, :telefone, :email, :senha, :termo_concientizacao)");
         $cadastrar->execute(array(
             ':nome' => $nome,
             ':cep' => $cep,
             ':endereco' => $endereco,
+            ':uf' => $uf,
             ':cidade' => $cidade,
             ':bairro' => $bairro,
             ':complemento' => $comp,
@@ -36,7 +38,7 @@ if ($email === $email1) {
     }
     if ($cadastrar == true) {
         echo "<script>alert('Cadastrado com sucesso')</script>";
-        echo "<script>location.href='../perfil.php'</script>";
+        echo "<script>location.href='../login.php'</script>";
     }
 } else {
     echo "<script>alert('Email já cadastrado')</script>";

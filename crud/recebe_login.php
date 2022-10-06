@@ -16,7 +16,7 @@ if($into != null){
     $_SESSION['id'] = $into['id'];
     $_SESSION['nome'] = $into['nome'];
     
-    echo "<script>window.location.href='../dashboad.php'</script>";
+    echo "<script>window.location.href='../dashboard/'</script>";
 }else{
     echo "<script>alert('Informações invalidas!')</script>";
     echo "<script>window.location.href='../login.php'</script>";

@@ -1,7 +1,6 @@
 <?php
 include_once "conexao.php";
-// session_start();
-// $id = $_SESSION['id_login'];
+session_start();
 $imagem = $_FILES['imagem'];
 if (isset($imagem)) {
     $ver = explode(".", strtolower($imagem['name'])); // Pegar a extensão da imagem
@@ -16,9 +15,9 @@ if (isset($imagem)) {
         $what = $_POST['what'];
         $valor = $_POST['valor'];
         $cidade = $_POST['cidade'];
-        $id = 1;
+        $id = $_SESSION['id'];
 
-        $cad = $pdo->prepare("INSERT INTO `cadastro_ad`(`imagem`, `titulo`, `descricao`, `telefone`, `whatsapp`, `valor`, `localizacao`, `cadastro_cliente`) VALUE (:imagem, :titulo, :descricao, :telefone, :whatsapp, :valor, :localizacao, :cadastro_cliente)");
+        $cad = $pdo->prepare("INSERT INTO `cadastro_ad`(`imagem`, `titulo`, `descricao`, `telefone`, `whatsapp`, `valor`, `localizacao`, `cadastro_cliente`,`AD_ativo_desativo`) VALUE (:imagem, :titulo, :descricao, :telefone, :whatsapp, :valor, :localizacao, :cadastro_cliente,:AD_ativo_desativo)");
         $cad->execute(array(
             ':imagem' => $name, // o nome da imagem
             ':titulo' => $titulo,
@@ -27,11 +26,12 @@ if (isset($imagem)) {
             ':whatsapp' => $what,
             ':valor' => $valor,
             ':localizacao' => $cidade,
-            ':cadastro_cliente' => $id
+            ':cadastro_cliente' => $id,
+            ':AD_ativo_desativo' => 'a'
         ));
         if ($cad == true) {
             echo "<script>alert('Cadastrado com sucesso')</script>";
-            echo "<script>location.href='../perfil.php'</script>";
+            echo "<script>location.href='../dashboard/'</script>";
         }
     } else {
         echo "<script>alert('Formato invalido da imagem')</script>";

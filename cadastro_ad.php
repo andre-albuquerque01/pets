@@ -12,7 +12,7 @@
 
 <body>
     <div class="container-fluid">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center num">
             <form action="crud/ad.php" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="imagem">Imagem</label>
@@ -44,6 +44,9 @@
             </form>
         </div>
     </div>
+    <footer>
+        &copy; Todos os direitos reservados
+    </footer>
 </body>
 
 </html>

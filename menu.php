@@ -32,9 +32,6 @@ session_start();
             </ul>
         </div>
     </nav>
-    <footer>
-        &copy; Todos os direitos reservados
-    </footer>
 </body>
 
 </html>

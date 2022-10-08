@@ -8,21 +8,19 @@ if (isset($imagem)) {
         $name = date("H_i_s-d_m_Y.") . $ver[sizeof($ver) - 1]; // Novo nome
         $diretorio = "../imagens/";
         move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio . $name); // mover a imagem para a pasta
-        echo "sucesso" . $new_name;
+        // echo "sucesso" . $name;
         $titulo = $_POST['titulo'];
         $desc = $_POST['desc'];
-        $tel = $_POST['tel'];
         $what = $_POST['what'];
         $valor = $_POST['valor'];
         $cidade = $_POST['cidade'];
         $id = $_SESSION['id'];
 
-        $cad = $pdo->prepare("INSERT INTO `cadastro_ad`(`imagem`, `titulo`, `descricao`, `telefone`, `whatsapp`, `valor`, `localizacao`, `cadastro_cliente`,`AD_ativo_desativo`) VALUE (:imagem, :titulo, :descricao, :telefone, :whatsapp, :valor, :localizacao, :cadastro_cliente,:AD_ativo_desativo)");
+        $cad = $pdo->prepare("INSERT INTO `cadastro_ad`(`imagem`, `titulo`, `descricao`, `whatsapp`, `valor`, `localizacao`, `cadastro_cliente`,`AD_ativo_desativo`) VALUE (:imagem, :titulo, :descricao, :whatsapp, :valor, :localizacao, :cadastro_cliente,:AD_ativo_desativo)");
         $cad->execute(array(
             ':imagem' => $name, // o nome da imagem
             ':titulo' => $titulo,
             ':descricao' => $desc,
-            ':telefone' => $tel,
             ':whatsapp' => $what,
             ':valor' => $valor,
             ':localizacao' => $cidade,

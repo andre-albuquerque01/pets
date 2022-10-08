@@ -32,11 +32,12 @@
         <div class="row">
             <?php
             include_once "crud/conexao.php";
+            $pesquisa = $_GET['search'];
             // Verificar se tem página, se não vai para página 1
             $pag = (isset($_GET['pag'])) && $_GET['pag'] != "" ? $_GET['pag'] : 1;
             $qtd_inicio = 25;
             $qtd_itens = ceil($pag * $qtd_itens) - $qtd_itens;
-            $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad limit $qtd_itens, $qtd_inicio");
+            $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad WHERE titulo = '%$pesquisa%' limit $qtd_itens, $qtd_inicio");
             if ($select && $select->rowCount() != 0) {
                 while ($sel = $select->fetch()) {
                     $id = $sel['id'];
@@ -69,7 +70,7 @@
                     </div>
                 <?php
                 }
-                $select2 = $pdo->query("SELECT  FROM cadastro_ad ORDER by Date_Ad DESC");
+                $select2 = $pdo->query("SELECT COUNT(id) AS num_id FROM cadastro_ad WHERE titulo = '%$pesquisa%' ORDER by Date_Ad DESC");
                 $row_pag = $select2->rowCount();
                 $qtd_pag = ceil($row_pag['Data_Ad'] / $qtd_inicio);
                 // Verificar pagina anterior e posterior

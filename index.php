@@ -34,7 +34,7 @@
             include_once "crud/conexao.php";
             // Verificar se tem página, se não vai para página 1
             $pag = (isset($_GET['pag'])) && $_GET['pag'] != "" ? $_GET['pag'] : 1;
-            $qtd_inicio = 25;
+            $qtd_inicio = 24;
             $qtd_itens = ceil($pag * $qtd_itens) - $qtd_itens;
             $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad limit $qtd_itens, $qtd_inicio");
             if ($select && $select->rowCount() != 0) {

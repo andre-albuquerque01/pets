@@ -27,7 +27,7 @@
     ?>
     <div class="container-fluid">
         <div class="d-flex justify-content-center">
-            <form action="crud/AlteraAd.php" method="POST" enctype="multipart/form-data">
+            <form action="crud/alteraAd.php" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="imagem">Imagem</label>
                     <input type="file" name="imagem" id="imagem" class="form-control" value="<?= $image ?>" required>

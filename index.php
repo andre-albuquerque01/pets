@@ -28,14 +28,14 @@
         </form>
     </div>
     <hr style="width: 80%; text-align: center; margin-left: 10%;">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <?php
             include_once "crud/conexao.php";
             // Verificar se tem página, se não vai para página 1
             $pag = (isset($_GET['pag'])) && $_GET['pag'] != "" ? $_GET['pag'] : 1;
             $qtd_inicio = 24;
-            $qtd_itens = ceil($pag * $qtd_itens) - $qtd_itens;
+            $qtd_itens = ceil($pag * $qtd_inicio) - $qtd_inicio;
             $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad limit $qtd_itens, $qtd_inicio");
             if ($select && $select->rowCount() != 0) {
                 while ($sel = $select->fetch()) {
@@ -45,12 +45,13 @@
                     $title = $sel['titulo'];
                     $value = $sel['valor'];
                     $city = $sel['localizacao'];
-                    $date = $sel['Date_Ad'];
-
+                    $dateSemFort = $sel['Date_Ad'];
+                    $date1 = date_create($dateSemFort);
+                    $date = date_format($date1, "H:m:s d-m-Y");
             ?>
                     <div class="col-md-4">
                         <a href="item.php?id=<?= $id ?>" style="text-decoration: none;">
-                            <div class="card mb-3" style="width: 340px;">
+                            <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <img src="imagens/<?= $image ?>" class="img-fluid rounded-start" alt="imagem do anuncio" style="width: 150px; max-height: 150px;">
@@ -69,9 +70,9 @@
                     </div>
                 <?php
                 }
-                $select2 = $pdo->query("SELECT  FROM cadastro_ad ORDER by Date_Ad DESC");
+                $select2 = $pdo->query("SELECT id FROM cadastro_ad ORDER by Date_Ad DESC");
                 $row_pag = $select2->rowCount();
-                $qtd_pag = ceil($row_pag['Data_Ad'] / $qtd_inicio);
+                $qtd_pag = ceil($row_pag / $qtd_inicio);
                 // Verificar pagina anterior e posterior
                 $pag_ant = $pag - 1;
                 $pag_posterior = $pag + 1;
@@ -81,11 +82,10 @@
                         <li class="page-item">
                             <?php
                             if ($pag_ant != 0) {
-                                echo "<a class='page-link' href='index.php?pag=$pag_ant' aria-label='Previous'>
+                                $pagAnt = $pag_ant;
+                                echo " <a class='page-link' href='index.php?pag=<?= $pagAnt ?>' aria-label='Previous'>
                                 <span aria-hidden='rue'>&laquo;</span>
                             </a>";
-                            } else {
-                                echo "<span aria-hidden='true'>&laquo;</span>";
                             }
                             ?>
                         </li>
@@ -97,11 +97,11 @@
                         <li class="page-item">
                             <?php
                             if ($pag_posterior <= $qtd_pag) {
-                                echo "<a class='page-link' href='index.php?pag=$pag_posterior' aria-label='Next'>
+                                $pagPos = $pag_posterior;
+
+                                echo "<a class='page-link' href='index.php?pag=<?= $pagPos ?>' aria-label='Next'>
                                 <span aria-hidden='true'>&raquo;</span>
                             </a>";
-                            } else {
-                                echo "<span aria-hidden='true'>&raquo;</span>";
                             }
                             ?>
                         </li>

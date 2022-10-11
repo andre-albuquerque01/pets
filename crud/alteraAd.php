@@ -18,7 +18,7 @@ if (isset($imagem)) {
 
         $cad = $pdo->prepare("UPDATE `cadastro_ad` SET `imagem`= :imagem, `titulo`=:titulo, `descricao`=:descricao, `whatsapp`=:whatsapp, `valor`=:valor, `localizacao`=:localizacao WHERE cadastro_cliente = $id");
         $cad->execute(array(
-            ':imagem' => $new_name, // o nome da imagem
+            ':imagem' => $name, // o nome da imagem
             ':titulo' => $titulo,
             ':descricao' => $desc,
             ':whatsapp' => $what,
@@ -27,7 +27,7 @@ if (isset($imagem)) {
         ));
         if ($cad == true) {
             echo "<script>alert('Alteração feita com sucesso')</script>";
-            echo "<script>location.href='../perfil.php'</script>";
+            echo "<script>location.href='../dashboard/'</script>";
         }
     } else {
         echo "<script>alert('Formato invalido da imagem')</script>";

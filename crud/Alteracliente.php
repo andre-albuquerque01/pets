@@ -12,7 +12,7 @@ $cep = $_POST['cep'];
 $cidade = $_POST['cidade'];
 $estado = $_POST['uf'];
 
-if ($senha === $Newsenha) {
+if ($senha != $Newsenha) {
     $term = "s";
     $cadastrar = $pdo->prepare("UPDATE `cadastro_cliente` SET `nome`=:nome, `cep`=:cep, `cidade`=:cidade,`estado`=:estado, `telefone`=:telefone, `email`=:email, `senha`=:senha WHERE id = $id");
     $cadastrar->execute(array(

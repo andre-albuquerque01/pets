@@ -2,8 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Cadastro usuário</title>
-    <script src="js/cep.js"></script>
+    <title>Altera usuário</title>
     <?php
     include_once "menu.php";
     ?>
@@ -15,14 +14,11 @@
     include_once "crud/verifca_login.php";
     $id = $_SESSION['id'];
 
-    $select = $pdo->query("SELECT nome, cep, endereco, estado, cidade, bairro, complemento, telefone, email, senha from cadastro_cliente WHERE id = $id");
+    $select = $pdo->query("SELECT nome, cep, estado, cidade, telefone, email, senha from cadastro_cliente WHERE id = $id");
     while ($sel = $select->fetch()) {
         $nome = $sel['nome'];
         $cep = $sel['cep'];
-        $end = $sel['endereco'];
         $city = $sel['cidade'];
-        $bairro = $sel['bairro'];
-        $com = $sel['complemento'];
         $estado = $sel['estado'];
         $tell = $sel['telefone'];
         $email = $sel['email'];
@@ -57,53 +53,12 @@
                         <input type="number" name="cep" id="cep" class="form-control" size="10" maxlength="9" onblur="pesquisacep(this.value);" placeholder="CEP" value="<?= $cep ?>" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="rua">Endereço</label>
-                        <input type="text" name="endereco" id="rua" class="form-control" value="<?= $end ?>" required>
-                    </div>
-                    <div class="col-md-6">
                         <label for="cidade">Cidade</label>
                         <input type="text" name="cidade" id="cidade" class="form-control" value="<?= $city ?>" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="bairro">Bairro</label>
-                        <input type="text" name="bairro" id="bairro" class="form-control" value="<?= $bairro ?>" required>
-                    </div>
-                    <div class="col-md-6">
                         <label for="uf">UF</label>
-                        <select class="form-select" id="uf" name="uf" value="<?= $estado ?>" required>
-                            <option value="">Selecione</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espirito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="comp">Complemento</label>
-                        <input type="text" name="comp" id="comp" class="form-control" value="<?= $com ?>" required>
+                        <input type="text" class="form-control" id="uf" name="uf" value="<?= $estado ?>" required readonly>
                     </div>
                 </div>
                 <div class="mt-2">
@@ -112,6 +67,66 @@
             </form>
         </div>
     </div>
+    <script defer>
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.  
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+    </script>
 </body>
 
 </html>

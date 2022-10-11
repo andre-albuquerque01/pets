@@ -1,4 +1,4 @@
-CREATE DATABASE pets; USE
+CREATE DATABASE pet; USE
     pet;
 CREATE TABLE cadastro_cliente(
     id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -11,6 +11,7 @@ CREATE TABLE cadastro_cliente(
     telefone VARCHAR(14),
     email VARCHAR(150),
     senha VARCHAR(15),
+    desc_perf varchar(10),
     termo_concientizacao CHAR
 ); CREATE TABLE cadastro_ad(
     id INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -21,16 +22,12 @@ CREATE TABLE cadastro_cliente(
     whatsapp VARCHAR(14),
     valor DOUBLE,
     localizacao VARCHAR(80),
-    AD_ativo_desativo CHAR(1),
+    AD_ativo_desativo CHAR,
+    MessageDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     cadastro_cliente INT
-); CREATE TABLE chat(
-    id INT(11) PRIMARY KEY AUTO_INCREMENT,
-    conversa VARCHAR(255),
-    cadastro_ad INT
 ); ALTER TABLE
     cadastro_ad ADD CONSTRAINT fk_cadastro_cliente FOREIGN KEY(cadastro_cliente) REFERENCES cadastro_cliente(id) ON DELETE SET NULL ON UPDATE CASCADE;
-ALTER TABLE
-    chat ADD CONSTRAINT fk_cadastro_ad FOREIGN KEY(cadastro_ad) REFERENCES cadastro_ad(id) ON DELETE SET NULL ON UPDATE CASCADE;
-    ALTER TABLE chat ADD COLUMN MessageDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+   
+
 
 Adicionar a disponibilidade, em anuncio

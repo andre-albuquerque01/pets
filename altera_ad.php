@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Cadastro anuncio</title>
+    <title>Altera anuncio</title>
     <?php
     include_once "menu.php";
     ?>
@@ -27,7 +27,7 @@
     ?>
     <div class="container-fluid">
         <div class="d-flex justify-content-center">
-            <form action="crud/AlteraAd.php" method="POST" enctype="multipart/form-data">
+            <form action="crud/alteraAd.php" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="imagem">Imagem</label>
                     <input type="file" name="imagem" id="imagem" class="form-control" value="<?= $image ?>" required>
@@ -40,10 +40,6 @@
                 <div>
                     <label for="desc">Descrição do anúncio</label>
                     <input type="text" name="desc" id="desc" class="form-control" value="<?= $desc ?>" required>
-                </div>
-                <div>
-                    <label for="tel">Telefone para contato</label>
-                    <input type="tel" name="tel" id="tel" class="form-control" value="<?= $tell ?>" required>
                 </div>
                 <div>
                     <label for="what">WhatsApp</label>

@@ -3,10 +3,14 @@
      -webkit-appearance: none;
      margin: 0;
  }
-hr{
-    width: 80%;
-    color: red;
-}
+
+ hr {
+     width: 80%;
+     color: #00f;
+     text-align: center;
+     margin-left: 10%;
+ }
+
  footer {
      position: fixed;
      bottom: 0;

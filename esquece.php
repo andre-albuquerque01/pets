@@ -11,7 +11,7 @@
 <body>
     <div class="container-fluid">
         <div class="d-flex justify-content-center mt-5">
-            <form action="crud/recebe_email.php" method="POST">
+            <form action="email/index.php" method="POST">
                 <div class="">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="Email cadastrado">

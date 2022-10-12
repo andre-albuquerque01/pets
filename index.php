@@ -36,7 +36,7 @@
             $pag = (isset($_GET['pag'])) && $_GET['pag'] != "" ? $_GET['pag'] : 1;
             $qtd_inicio = 24;
             $qtd_itens = ceil($pag * $qtd_inicio) - $qtd_inicio;
-            $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad limit $qtd_itens, $qtd_inicio");
+            $select = $pdo->query("SELECT id, imagem, titulo, valor, localizacao, Date_Ad FROM cadastro_ad WHERE AD_ativo_desativo = 'a' limit $qtd_itens, $qtd_inicio");
             if ($select && $select->rowCount() != 0) {
                 while ($sel = $select->fetch()) {
                     $id = $sel['id'];
@@ -70,7 +70,7 @@
                     </div>
                 <?php
                 }
-                $select2 = $pdo->query("SELECT id FROM cadastro_ad ORDER by Date_Ad DESC");
+                $select2 = $pdo->query("SELECT id FROM cadastro_ad WHERE AD_ativo_desativo = 'a' ORDER by Date_Ad DESC");
                 $row_pag = $select2->rowCount();
                 $qtd_pag = ceil($row_pag / $qtd_inicio);
                 // Verificar pagina anterior e posterior

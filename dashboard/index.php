@@ -58,7 +58,7 @@
                 while ($query = $sql->fetch()) {
                 ?>
                     <tr>
-                        <td><img src="../imagens/<?= $query['imagem'] ?>" alt="imagem do anuncio" width="155px"></td>
+                        <td><a href="../item.php?id=<?= $query['id'] ?>"><img src="../imagens/<?= $query['imagem'] ?>" alt="imagem do anuncio" width="155px"> </a></td>
                         <td> <?= $query['titulo'] ?></td>
                         <td> <?= $query['valor'] ?></td>
                         <td> <?= $query['localizacao'] ?></td>
